@@ -1,6 +1,6 @@
 """
 Exercício 2 de LAEDs
-Aluno: @Fúlvio Taroni Monteforte
+Autor: @Fúlvio Taroni Monteforte
 """
 from datetime import date
 
@@ -30,12 +30,16 @@ class Biblioteca:
             lista_autores.append(iter.get_autores())
             lista_titulos.append(iter.get_titulo())
 
+        # print(lista_autores)
+        # print(lista_titulos)
+
         for i in range(len(lista_autores)):
             for j in range(len(lista_autores[i])):
                 chaves.append(lista_autores[i][j].nome_como_citado())
         dicionario = dict()
-        for iter in chaves:
-            dicionario.setdefault(iter, list())
+
+        for chave in chaves:
+            dicionario.setdefault(chave, list())
 
         # Só Deus sabe como esse loop deu certo
         for i in range(len(livros)):
@@ -43,15 +47,17 @@ class Biblioteca:
                 x = livros[i].get_autores()
                 for k in range(len(x)):
                   dicionario[x[k].nome_como_citado()].append(livros[i].get_titulo())
+        # print(dicionario)
 
         # Na real ele não deu certo, esse pedaço corrige o que sai errado dele (Elimana repetições)
         chaves = set(chaves)
         chaves = list(chaves)
+        chaves.sort()
+
         for iter in chaves:
             aux = set(dicionario[iter])
             aux = list(aux)
             dicionario[iter] = aux
-
         return dicionario
 # Fim da classe Biblioteca----------------------------------------------------------------------------------------------
 
@@ -213,7 +219,7 @@ if __name__ == "__main__":
     """
     # Criando a biblioteca----------------------------------------------------------------------------------------------
     biblioteca = Biblioteca(livros)
-
+    biblioteca.livros_por_autor()
     # Testando a função de 'livros_por_autor'---------------------------------------------------------------------------
     for autor, livros in biblioteca.livros_por_autor().items():
         print(f'Autor: {autor} - Livros: {livros}')
