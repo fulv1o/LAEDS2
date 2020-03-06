@@ -107,6 +107,7 @@ class Autor:
         self.nome_1 = nome_1
         self.nome_2 = nome_2
         self.nome_3 = nome_3
+        self.data_nascimento = data_nascimento
         Autor.num_autores += 1
 
     # Métodos especiais-------------------------------------------------------------------------------------------------
@@ -138,6 +139,9 @@ class Autor:
     def set_nome_3(self, nome):
         self.nome_3 = nome
 
+    def set_data_nascimento(self, data_nascimento = date.today()):
+        self.data_nascimento = data_nascimento
+
     def get_nome_1(self):
         return self.nome_1
 
@@ -149,6 +153,9 @@ class Autor:
 
     def get_quant_autores(self):
         return self.num_autores
+
+    def get_data_nascimento(self):
+        return self.data_nascimento
 
     def __str__(self):
         if self.get_nome_2() == '':
