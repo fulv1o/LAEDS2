@@ -1,13 +1,13 @@
 """
 Exercício 2 de LAEDs
-Aluno: Fúlvio Taroni Monteforte
+Aluno: @Fúlvio Taroni Monteforte
 """
+from datetime import date
 
 class Biblioteca:
     # Método construtor-------------------------------------------------------------------------------------------------
     def __init__(self, livros=None):
         self.livros = livros
-
         if livros is None:
             self.livros = list()
 
@@ -15,6 +15,7 @@ class Biblioteca:
     def add_livro(self, livro):
         self.livros.append(livro)
 
+    # No sense----------------------------------------------------------------------------------------------------------
     def __str__(self):
         pass
 
@@ -102,13 +103,32 @@ class Autor:
     num_autores = 0 # Apenas par controle do desenvolvedor
 
     # Método construtor-------------------------------------------------------------------------------------------------
-    def __init__(self, nome_1, nome_3, nome_2=''):
+    def __init__(self, nome_1, nome_3, nome_2= '', data_nascimento=date.today()):
         self.nome_1 = nome_1
         self.nome_2 = nome_2
         self.nome_3 = nome_3
         Autor.num_autores += 1
 
     # Métodos especiais-------------------------------------------------------------------------------------------------
+    @property
+    def nome(self):
+        if self.get_nome_2() == '':
+            return f'{self.get_nome_1()} {self.get_nome_3()}'
+        else:
+            return f'{self.get_nome_1()} {self.get_nome_2()} {self.get_nome_3()}'
+
+    @nome.setter
+    def nome(self, val):
+        arr_nomes = val.split(" ")
+        if len(arr_nomes) < 3:
+            self.nome_1 = arr_nomes[0]
+            self.nome_3 = arr_nomes[1]
+            self.nome_2 = ''
+        else:
+            self.nome_1 = arr_nomes[0]
+            self.nome_2 = arr_nomes[1]
+            self.nome_3 = arr_nomes[2]
+    # Não gosto de usar property, fiz só pq o exercício pedia-----------------------------------------------------------
     def set_nome_1(self, nome):
         self.nome_1 = nome
 
@@ -131,7 +151,10 @@ class Autor:
         return self.num_autores
 
     def __str__(self):
-        return f'{self.get_nome_1()} {self.get_nome_2()} {self.get_nome_3()}'
+        if self.get_nome_2() == '':
+            return f'{self.get_nome_1()} {self.get_nome_3()}'
+        else:
+            return f'{self.get_nome_1()} {self.get_nome_2()} {self.get_nome_3()}'
 
     # Métodos adicionais------------------------------------------------------------------------------------------------
     def nome_como_citado(self):
@@ -187,3 +210,4 @@ if __name__ == "__main__":
     # Testando a função de 'livros_por_autor'---------------------------------------------------------------------------
     for autor, livros in biblioteca.livros_por_autor().items():
         print(f'Autor: {autor} - Livros: {livros}')
+
